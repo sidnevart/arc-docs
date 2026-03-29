@@ -1,0 +1,29 @@
+<svg width="768" height="768" viewBox="0 0 768 768" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="orbitBlue" x1="142" y1="424" x2="332" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5BD7FF"/>
+      <stop offset="1" stop-color="#215FB4"/>
+    </linearGradient>
+    <linearGradient id="orbitOrange" x1="436" y1="534" x2="650" y2="264" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFC93B"/>
+      <stop offset="1" stop-color="#FF8A00"/>
+    </linearGradient>
+    <radialGradient id="planetBlue" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 312) rotate(90) scale(34)">
+      <stop stop-color="#82E6FF"/>
+      <stop offset="1" stop-color="#1F79C8"/>
+    </radialGradient>
+    <radialGradient id="planetOrange" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(514 462) rotate(90) scale(38)">
+      <stop stop-color="#FFE37B"/>
+      <stop offset="1" stop-color="#FF9800"/>
+    </radialGradient>
+  </defs>
+  <rect width="768" height="768" rx="184" fill="white"/>
+  <path d="M202 432C146 380 138 320 188 274C228 236 286 220 346 220" stroke="url(#orbitBlue)" stroke-width="18" stroke-linecap="round"/>
+  <path d="M198 444C292 520 418 556 522 514C594 484 642 422 650 334C654 292 642 258 614 236" stroke="url(#orbitOrange)" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="220" cy="314" r="28" fill="url(#planetBlue)"/>
+  <circle cx="514" cy="460" r="32" fill="url(#planetOrange)"/>
+  <path d="M403 160L466 568H374L358 466H282L268 568H184L252 160H403Z" fill="#475C84"/>
+  <path d="M316 270L301 388H344L330 270H316Z" fill="white"/>
+  <path d="M413 160H489L538 568H456L413 160Z" fill="#475C84"/>
+  <path d="M384 126L393 154H423L399 171L408 199L384 182L360 199L369 171L345 154H375L384 126Z" fill="white"/>
+</svg>
