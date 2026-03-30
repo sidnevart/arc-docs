@@ -63,6 +63,7 @@ The next runtime-facing slice is also now wired into `task plan|run`:
   - `before_run`
   - `after_run`
 - hook execution is now audited into `hook_execution.json` and `hook_execution.md`
+- sandboxed hook runs now also emit `hook_sandbox_profile.json` and `hook_sandbox_profile.md`
 - risky hooks now block execution until approval instead of silently running
 
 Current implementation note:
@@ -73,6 +74,12 @@ Current implementation note:
   - sanitized environment instead of inheriting the full parent shell
   - explicit `ARC_HOOK_SANDBOX_DIR`
   - `.sh` / `.bash` scripts only
+  - a separate sandbox profile artifact that records:
+    - working directory
+    - whether parent env was inherited
+    - which ARC env keys were exposed
+    - allowed memory scopes
+    - the mediated memory write path
 - hook-side memory writes now have a mediated path:
   - hooks can call `arc hook memory add`
   - the command reads `ARC_ALLOWED_MEMORY_SCOPES`
