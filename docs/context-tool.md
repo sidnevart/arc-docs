@@ -130,6 +130,9 @@ It also means standalone configuration now has an explicit human-authored home o
 - `memory_boost`
 - `memory_trust_bonus`
 - `memory_recency_bonus`
+- `source_kinds`
+- `source_diversity`
+- `diversity_bonus`
 - `section_provenance`
 - `accounting`
 - `reuse`
@@ -158,6 +161,9 @@ The new provenance/accounting layer makes retrieval inspectable instead of only 
 - `baseline_selected_total`
 - `optimized_candidate_total`
 - `optimized_selected_total`
+- `baseline_source_diversity`
+- `optimized_source_diversity`
+- `optimized_diversity_bonus`
 - `reuse_index_source`
 - `reuse_memory_source`
 - `reuse_artifact_count`
@@ -166,6 +172,8 @@ ARC run metadata now mirrors the first high-level totals too:
 
 - `context_ctx_candidate_total`
 - `context_ctx_selected_total`
+- `context_ctx_source_diversity`
+- `context_ctx_diversity_bonus`
 - `context_ctx_index_source`
 - `context_ctx_reused_artifact_count`
 
@@ -185,6 +193,24 @@ The next reuse-evidence slice landed too:
 - this means a later tuning pass can answer two different questions separately:
   - what was selected into the pack
   - what did not need to be recomputed first
+
+The next retrieval-quality slice landed on top of that too:
+
+- `ctx` now materializes explicit source-diversity signals instead of relying only on token pressure, title/name matches, and memory bonuses
+- current diversity contract is:
+  - `source_kinds`
+  - `source_diversity`
+  - `diversity_bonus`
+- source diversity intentionally tracks whether the optimized pack actually spans multiple useful surfaces such as:
+  - docs
+  - code
+  - memory
+  - changes
+  - index summary
+- ARC run metadata now mirrors the top-level diversity fields, so a selected `ctx` pack can be explained as:
+  - smaller
+  - higher quality
+  - more diverse across source types
 
 То есть `ctx` уже не просто sidecar для наблюдения: ARC действительно может использовать его pack как основной provider-facing context, но сохраняет обе версии для аудита и последующего улучшения retrieval quality.
 
