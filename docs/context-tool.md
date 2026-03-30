@@ -130,6 +130,61 @@ It also means standalone configuration now has an explicit human-authored home o
 - `memory_boost`
 - `memory_trust_bonus`
 - `memory_recency_bonus`
+- `section_provenance`
+- `accounting`
+- `reuse`
+
+The new provenance/accounting layer makes retrieval inspectable instead of only heuristic:
+
+- every assembled section now carries section-level provenance in metadata
+- provenance records:
+  - `title`
+  - `source`
+  - `source_paths`
+  - `candidate_count`
+  - `selected_count`
+  - truncation flag and optional notes
+- aggregate accounting now records:
+  - total candidates vs selected entries
+  - docs candidates vs selected
+  - code file candidates vs selected
+  - symbol candidates vs selected
+  - recent-change candidates vs selected
+  - memory candidates vs selected
+
+`ctx bench` now also compares baseline vs optimized on candidate-vs-final density, not only tokens and quality:
+
+- `baseline_candidate_total`
+- `baseline_selected_total`
+- `optimized_candidate_total`
+- `optimized_selected_total`
+- `reuse_index_source`
+- `reuse_memory_source`
+- `reuse_artifact_count`
+
+ARC run metadata now mirrors the first high-level totals too:
+
+- `context_ctx_candidate_total`
+- `context_ctx_selected_total`
+- `context_ctx_index_source`
+- `context_ctx_reused_artifact_count`
+
+The next reuse-evidence slice landed too:
+
+- `ctx assemble` metadata now makes reuse explicit instead of leaving it implied behind `built_index=false`
+- the first reuse contract is intentionally small and audit-friendly:
+  - `reuse.index_source`
+  - `reuse.memory_source`
+  - `reuse.reused_artifact_count`
+  - `reuse.index_bundle_path`
+  - `reuse.memory_entries_path`
+- current values distinguish:
+  - `reused_existing`
+  - `rebuilt`
+  - `empty_workspace`
+- this means a later tuning pass can answer two different questions separately:
+  - what was selected into the pack
+  - what did not need to be recomputed first
 
 То есть `ctx` уже не просто sidecar для наблюдения: ARC действительно может использовать его pack как основной provider-facing context, но сохраняет обе версии для аудита и последующего улучшения retrieval quality.
 
