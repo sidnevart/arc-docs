@@ -212,6 +212,23 @@ The next retrieval-quality slice landed on top of that too:
   - higher quality
   - more diverse across source types
 
+The next ranking-refinement slice landed after that:
+
+- `Relevant Docs` and `Relevant Code Surfaces` no longer just sort by raw score and then take the top rows from one dominant path family
+- selection inside those sections now spreads across multiple path families before filling the remainder, which makes the optimized pack less likely to collapse into one subtree or one doc-heavy cluster
+- `ctx` now persists the first family-level signals too:
+  - `doc_family_diversity`
+  - `code_family_diversity`
+- `ctx bench` now exposes:
+  - `optimized_doc_family_diversity`
+  - `optimized_code_family_diversity`
+- ARC run metadata now mirrors:
+  - `context_ctx_doc_family_diversity`
+  - `context_ctx_code_family_diversity`
+- this is intentionally narrower than a full cluster model:
+  - enough to show that docs/code selection is spreading across useful path families
+  - still simple enough to keep the v1 retrieval contract explainable
+
 То есть `ctx` уже не просто sidecar для наблюдения: ARC действительно может использовать его pack как основной provider-facing context, но сохраняет обе версии для аудита и последующего улучшения retrieval quality.
 
 Memory теперь уже влияет на assembled pack напрямую:
