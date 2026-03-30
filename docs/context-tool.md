@@ -130,6 +130,9 @@ It also means standalone configuration now has an explicit human-authored home o
 - `memory_boost`
 - `memory_trust_bonus`
 - `memory_recency_bonus`
+- `retrieval_efficiency`
+- `noise_reduction_percent`
+- `efficiency_bonus`
 - `source_kinds`
 - `source_diversity`
 - `diversity_bonus`
@@ -161,6 +164,11 @@ The new provenance/accounting layer makes retrieval inspectable instead of only 
 - `baseline_selected_total`
 - `optimized_candidate_total`
 - `optimized_selected_total`
+- `baseline_retrieval_efficiency`
+- `optimized_retrieval_efficiency`
+- `baseline_noise_reduction_percent`
+- `optimized_noise_reduction_percent`
+- `optimized_efficiency_bonus`
 - `baseline_source_diversity`
 - `optimized_source_diversity`
 - `optimized_diversity_bonus`
@@ -172,6 +180,9 @@ ARC run metadata now mirrors the first high-level totals too:
 
 - `context_ctx_candidate_total`
 - `context_ctx_selected_total`
+- `context_ctx_retrieval_efficiency`
+- `context_ctx_noise_reduction_percent`
+- `context_ctx_efficiency_bonus`
 - `context_ctx_source_diversity`
 - `context_ctx_diversity_bonus`
 - `context_ctx_index_source`
@@ -298,6 +309,24 @@ Memory теперь уже влияет на assembled pack напрямую:
 - `ctx bench` now records:
   - `optimized_memory_trust_bonus`
   - `optimized_memory_recency_bonus`
+
+Следующий retrieval-efficiency slice landed тоже:
+
+- `ctx` now persists:
+  - `retrieval_efficiency`
+  - `noise_reduction_percent`
+  - `efficiency_bonus`
+- `ctx bench` now mirrors:
+  - `baseline_retrieval_efficiency`
+  - `optimized_retrieval_efficiency`
+  - `baseline_noise_reduction_percent`
+  - `optimized_noise_reduction_percent`
+  - `optimized_efficiency_bonus`
+- ARC run metadata now mirrors:
+  - `context_ctx_retrieval_efficiency`
+  - `context_ctx_noise_reduction_percent`
+  - `context_ctx_efficiency_bonus`
+- selection can now justify a slightly larger `ctx` pack as `ctx_efficient_retrieval_within_extended_token_window` when it proves that it filtered candidate noise aggressively enough without losing quality
 
 Следующий retrieval slice landed тоже:
 
