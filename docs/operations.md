@@ -34,3 +34,21 @@ npm run start
 - `.arc/maps/CLI_MAP.md`
 - `.arc/maps/ARTIFACTS_MAP.md`
 - `.arc/maps/RUNTIME_STATUS.md`
+
+## Следующие operator-facing foundations
+
+- [Среда пресетов](./preset-environment)
+- [Context Tool](./context-tool)
+- [Budget Layer](./provider-budgeting)
+
+## Repo-local validation skills
+
+Перед приёмкой больших foundation-срезов используй project-local `.codex` validators:
+
+- `preset-environment-validator`
+- `context-tool-validator`
+- `provider-budget-validator`
+- `agent-ux-validator`
+- `editorial-release-validator`
+
+Эти skills нужны, чтобы acceptance не держался только на памяти прошлых фиксов и ручных проверках.

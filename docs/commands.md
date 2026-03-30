@@ -48,6 +48,25 @@ arc task run --path . --mode work --provider codex --dry-run "<задача>"
 arc task run --path . --mode work --provider codex --provider-timeout 30s "<задача>"
 ```
 
+### Запустить с явным budget mode
+
+```bash
+arc task run --path . --budget-mode deep_work "<задача>"
+```
+
+### Запустить с session budget override
+
+```bash
+arc task run --path . --budget-override-file ./.arc/tmp/session-budget.json "<задача>"
+```
+
+### Подготовить session budget override через CLI
+
+```bash
+arc budget session write --file ./.arc/tmp/session-budget.json --mode emergency_low_limit --block-premium-required true
+arc budget session show --file ./.arc/tmp/session-budget.json --json
+```
+
 ### Проверить статус
 
 ```bash
@@ -108,6 +127,13 @@ arc preset install --path . --id <preset-id>
 
 ```bash
 arc memory status --path .
+```
+
+### Записать память из hook runtime
+
+```bash
+ARC_RUN_ID=<run-id> ARC_ALLOWED_MEMORY_SCOPES=project,runs/<run-id> \
+arc hook memory add --path . --scope runs/<run-id> "fact learned inside a preset hook"
 ```
 
 ### Обновить карты проекта
