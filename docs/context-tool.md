@@ -219,6 +219,27 @@ The next ranking-refinement slice landed after that:
 - `ctx` now persists the first family-level signals too:
   - `doc_family_diversity`
   - `code_family_diversity`
+
+The next subtree-dominance slice landed after that:
+
+- `ctx` now distinguishes broad path families from tighter path clusters, so one strong subtree such as `internal/contexttool/*` or `apps/docs/docs/*` cannot quietly dominate an entire section
+- docs/code selection now uses a stricter cluster cap before it falls back to pure raw-score order
+- `ctx` now persists the next cluster-level signals too:
+  - `doc_cluster_diversity`
+  - `code_cluster_diversity`
+  - `doc_dominant_cluster_share`
+  - `code_dominant_cluster_share`
+- this keeps retrieval quality explainable at a finer granularity:
+  - family diversity shows broad coverage
+  - cluster diversity shows subtree spread inside a family
+  - dominant cluster share shows whether one subtree still swallowed too much of the section
+- ARC run metadata now mirrors the same signals:
+  - `context_ctx_doc_cluster_diversity`
+  - `context_ctx_code_cluster_diversity`
+  - `context_ctx_doc_dominant_cluster_share`
+  - `context_ctx_code_dominant_cluster_share`
+- selection can now also prefer a slightly larger `ctx` pack when it stays within the token window and proves that docs/code retrieval remained cluster-balanced instead of collapsing into one subtree
+  - `code_family_diversity`
 - `ctx bench` now exposes:
   - `optimized_doc_family_diversity`
   - `optimized_code_family_diversity`
