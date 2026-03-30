@@ -18,6 +18,7 @@ ARC не должен считать provider calls бесплатными. Пе
 - per-run artifact `budget_assessment.json`
 - per-run artifact `budget_usage_event.json`
 - per-run artifact `budget_policy_resolution.json`
+- per-run artifact `prompt_minimization.json`
 
 Текущий слой умеет:
 
@@ -121,6 +122,41 @@ Run metadata and assessment artifacts now also surface:
 - `budget_matched_signals`
 - `budget_signal_breakdown`
 - `budget_routing_trigger`
+
+Prompt minimization is now explicit:
+
+- every run now writes `prompt_minimization.json`
+- `budget_assessment.json` embeds the same payload under `prompt_minimization`
+- current minimization contract records:
+  - `context_source`
+  - `context_selection_reason`
+  - `arc_tokens`
+  - `ctx_tokens`
+  - `selected_tokens`
+  - `token_reduction`
+  - `token_reduction_percent`
+  - `prompt_minimized`
+
+Usage attribution is richer too:
+
+- `budget_usage_event.json` and `.arc/budget/usage_events.jsonl` now also persist:
+  - `project_root`
+  - `budget_mode_source`
+  - `environment_budget_profile`
+  - `context_source`
+  - `context_selection_reason`
+  - `context_arc_tokens`
+  - `context_ctx_tokens`
+  - `context_selected_tokens`
+  - `context_token_reduction`
+  - `context_token_reduction_percent`
+  - `prompt_minimized`
+  - `route_locally`
+
+That means a budget event now explains both:
+
+- why a run was routed, allowed, or blocked
+- how much ARC reduced prompt pressure before that decision
 
 Следующий слой развития — `Provider Budget Manager`, который дальше будет:
 
