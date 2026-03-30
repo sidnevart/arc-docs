@@ -140,6 +140,8 @@ Prompt minimization is now explicit:
 Usage attribution is richer too:
 
 - `budget_usage_event.json` and `.arc/budget/usage_events.jsonl` now also persist:
+  - `provider_model`
+  - `provider_session_id`
   - `project_root`
   - `budget_mode_source`
   - `environment_budget_profile`
