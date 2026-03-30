@@ -239,6 +239,27 @@ The next subtree-dominance slice landed after that:
   - `context_ctx_doc_dominant_cluster_share`
   - `context_ctx_code_dominant_cluster_share`
 - selection can now also prefer a slightly larger `ctx` pack when it stays within the token window and proves that docs/code retrieval remained cluster-balanced instead of collapsing into one subtree
+
+The next reuse-evidence slice landed after that:
+
+- `ctx` reuse evidence is now fingerprint-aware, not only source-aware
+- current reuse contract now includes:
+  - `reuse.index_source`
+  - `reuse.index_fingerprint`
+  - `reuse.memory_source`
+  - `reuse.memory_fingerprint`
+  - `reuse.reused_artifact_count`
+- this matters because `reused_existing` alone only says the tool avoided a rebuild; the fingerprints say which exact standalone artifacts backed that decision
+- `ctx bench` now mirrors the same fields in summary form:
+  - `reuse_index_fingerprint`
+  - `reuse_memory_fingerprint`
+- ARC run metadata now mirrors the top-level reuse fingerprints too:
+  - `context_ctx_index_fingerprint`
+  - `context_ctx_memory_fingerprint`
+- this keeps reuse evidence aligned across:
+  - standalone `ctx assemble`
+  - standalone `ctx bench`
+  - ARC `task plan|run`
   - `code_family_diversity`
 - `ctx bench` now exposes:
   - `optimized_doc_family_diversity`
