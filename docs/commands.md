@@ -109,6 +109,91 @@ arc chat list --path .
 arc preset list
 ```
 
+### Создать черновик набора
+
+```bash
+arc preset draft init --path . --id codex-research-preset --name "Codex Research Preset" --summary "Draft preset for structured repo research." --goal "Help the user explore a codebase and return structured reviewable findings." --target-agent codex --providers codex,claude --json
+```
+
+### Посмотреть черновик набора
+
+```bash
+arc preset draft show --path . --json codex-research-preset
+```
+
+### Обновить черновик набора
+
+```bash
+arc preset draft update --path . --id codex-research-preset \
+  --summary "Sharper draft summary for preset authoring." \
+  --goal "Help operators shape reviewable presets from vague agent ideas." \
+  --outputs preset_brief,preset_manifest,evaluation_pack,interview_notes \
+  --workflow interview,normalize,simulate,refine,save \
+  --quality-gates profile_complete,simulation_ready,validation_ready,brief_reviewed \
+  --json
+```
+
+### Запустить guided interview по черновику
+
+```bash
+arc preset draft interview start --path . --id codex-research-preset --mode deep --json
+arc preset draft interview answer --path . --session <session-id> --json "Help operators convert vague agent ideas into validated preset drafts."
+arc preset draft interview remediate --path . --json <session-id>
+arc preset draft interview show --path . --json <session-id>
+```
+
+### Проверить черновик набора
+
+```bash
+arc preset draft validate --path . --json codex-research-preset
+```
+
+### Прогнать симуляцию по черновику набора
+
+```bash
+arc preset draft simulate --path . --json codex-research-preset
+```
+
+### Перевести черновик в `tested` после passing simulation
+
+```bash
+arc preset draft mark-tested --path . --json codex-research-preset
+```
+
+### Экспортировать `tested` черновик в installable preset bundle
+
+```bash
+arc preset draft export --path . --json codex-research-preset
+arc preset validate --root .arc/presets/exports codex-research-preset-codex
+```
+
+### Перевести экспортированный `tested` черновик в `published`
+
+```bash
+arc preset draft publish --path . --json codex-research-preset
+```
+
+После `publish` ARC пишет не только `publish.json` и `publish.md`, но и `publish_envelope.json` с source/trust metadata и SHA-256 fingerprints по provider-specific bundle files.
+
+### Синхронизировать `published` черновик в произвольный local preset catalog
+
+```bash
+arc preset draft catalog-sync --path . --root ./local-preset-catalog --json codex-research-preset
+arc preset validate --root ./local-preset-catalog codex-research-preset-codex
+```
+
+### Установить `published` черновик прямо из `.arc/presets/exports`
+
+```bash
+arc preset draft install --path . --json codex-research-preset
+```
+
+### Список черновиков набора
+
+```bash
+arc preset draft list --path . --json
+```
+
 ### Предпросмотр установки
 
 ```bash
