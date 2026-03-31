@@ -52,6 +52,8 @@ arc doctor
 
 На 2026-03-29 этот же structured-output chat path был отдельно подтверждён вне constrained sandbox: `codex` вернул `arc-simulation html`, ARC материализовал HTML-артефакт и поднял live preview в `.arc/live_apps/`.
 
+На 2026-03-31 reply-only visual chat turns получили ещё один recovery слой: если Codex завис именно на `failed to refresh available models` и процесс был убит по timeout, ARC автоматически делает один повторный запуск с увеличенным timeout budget. Если recovery сработал, пользователь получает обычный ответ без stale `last_error`; если нет, в chat artifacts появятся `turn-XXX.retry.json` и `turn-XXX.retry.md`, а в session metadata останутся `chat_retry_status=exhausted` и `chat_retry_reason=codex_model_refresh_timeout`.
+
 ## Docusaurus не открывается
 
 Проверь:
